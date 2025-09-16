@@ -1,30 +1,44 @@
 package com.senai.conta_bancaria.Domain.Entity;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Entity
-public class Cliente {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table ( name="cliente",
+uniqueConstraints = {
+        @UniqueConstraint(columnNames = "cpf")
+} )
 
+
+public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(nullable = false, length = 120)
     @NotBlank (message = "O campo, NOME, NÃO pode estar vazio")
     private String nome;
 
+    @Column(nullable = false, length = 11)
     @NotNull (message = "O campo, CPF, NÃO pode estar vazio")
-    private  Long cpf;
+    private  String cpf;
 
-    @ElementCollection
-
-    @ManyToOne
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     @NotNull(message = "O campo contas não pode estar vazio")
-    @JoinColumn(name = "numero_conta")
     private List<Conta> contas;
+
+    @Column(nullable = false)
+    private boolean ativo;
 
 }

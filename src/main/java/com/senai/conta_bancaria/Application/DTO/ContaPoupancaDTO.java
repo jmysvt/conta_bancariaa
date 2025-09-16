@@ -2,10 +2,12 @@ package com.senai.conta_bancaria.Application.DTO;
 
 import com.senai.conta_bancaria.Domain.Entity.ContaPoupanca;
 
+import java.math.BigDecimal;
+
 public record ContaPoupancaDTO(
-        int numero,
-        double saldo,
-        double rendimento
+        String numero,
+        BigDecimal saldo,
+        BigDecimal rendimento
 ) {
     public static ContaPoupancaDTO fromEntity(ContaPoupanca conta) {
         if (conta == null) return null;

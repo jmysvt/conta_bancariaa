@@ -2,11 +2,13 @@ package com.senai.conta_bancaria.Application.DTO;
 
 import com.senai.conta_bancaria.Domain.Entity.ContaCorrente;
 
+import java.math.BigDecimal;
+
 public record ContaCorrenteDTO(
-        int numero,
-        double saldo,
-        double limite,
-        double taxa
+        String numero,
+        BigDecimal saldo,
+        BigDecimal limite,
+        BigDecimal taxa
 ) {
     public static ContaCorrenteDTO fromEntity(ContaCorrente conta) {
         if (conta == null) return null;
