@@ -1,6 +1,6 @@
 package com.senai.conta_bancaria.Application.Service;
 
-import com.senai.conta_bancaria.Application.DTO.ClienteDTO;
+import com.senai.conta_bancaria.Application.DTO.ClienteRegistroDTO;
 import com.senai.conta_bancaria.Domain.Repository.ClienteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO> listarClientes(){
+    public List<ClienteRegistroDTO> listarClientes(){
         return clienteRepository.findAll()
                 .stream()
-                .map(ClienteDTO::fromEntity)
+                .map(ClienteRegistroDTO::fromEntity)
                 .toList();
     }
 

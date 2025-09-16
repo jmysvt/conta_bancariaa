@@ -6,15 +6,15 @@ import com.senai.conta_bancaria.Domain.Entity.Conta;
 import java.util.ArrayList;
 import java.util.List;
 
-public record ClienteDTO (
+public record ClienteRegistroDTO(
         String nome,
         String cpf,
         List<Conta> contas
 ){
 
-    public static ClienteDTO fromEntity (Cliente cliente){
+    public static ClienteRegistroDTO fromEntity (Cliente cliente){
         if (cliente == null) return null;
-        return new ClienteDTO(
+        return new ClienteRegistroDTO(
                 cliente.getNome(),
                 cliente.getCpf(),
                 cliente.getContas() !=null ? cliente.getContas(): List.of()
