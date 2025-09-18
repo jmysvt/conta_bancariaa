@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) //entidades com tipos diferentes
 @DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING, length = 20) //tipo de dado que vai diferenciar as entidades
-@Table(name = "conta",
+@Table(name = "contaDTO",
     uniqueConstraints = {
         @UniqueConstraint(name = "uk_conta_numero", columnNames = "numero"),
         @UniqueConstraint(name = "uk_cliente_tipo", columnNames = {"cliente_id", "tipo_conta"})
@@ -30,7 +30,7 @@ public abstract class Conta {
     private String id;
 
     @Column(nullable = false, length = 20)
-    @NotNull(message = "O campo NUMERO da conta NÃO pode estar vazio")
+    @NotNull(message = "O campo NUMERO da contaDTO NÃO pode estar vazio")
     private String numero;
 
     @Column(nullable = false, precision = 4)
