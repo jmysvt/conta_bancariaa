@@ -23,9 +23,12 @@ public class ClienteService {
         var novaConta = dto.contaDTO().toEntity(cliente);
 
         boolean jaTemTipo = contas.stream()
-                .anyMatch(Conta c -> c.getClass().equals(dto.contaDTO().getClass()) && c.isAtiva);
+                .anyMatch(c -> c.getClass().equals(novaConta.getClass()) && c.isAtiva());
+        if (jaTemTipo)
+            throw new RuntimeException("Cliente já possui uma conta dese tipo!");
 
-        return  ;
+        cliente.getContas().add(novaConta);
 
+        return ClienteResponseDTO.fromEntity(repository.save(cliente));
     }
 }

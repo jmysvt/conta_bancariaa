@@ -1,5 +1,7 @@
 package com.senai.conta_bancaria.Application.DTO;
 
+import com.senai.conta_bancaria.Domain.Entity.Cliente;
+
 import java.util.List;
 
 public record ClienteResponseDTO (
@@ -10,4 +12,13 @@ public record ClienteResponseDTO (
     List<ContaResumoDTO> contas
 ){
 
+    public static ClienteResponseDTO fromEntity(Cliente cliente) {
+        List<ContaResumoDTO> contas = cliente.getContas().stream().map(ContaResumoDTO::fromEntity).toList();
+        return new ClienteResponseDTO(
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getCpf(),
+                contas
+        );
+    }
 }
