@@ -1,12 +1,12 @@
 package com.senai.conta_bancaria.Interface_UI_Controller;
 
+import com.senai.conta_bancaria.Application.DTO.ClienteResponseDTO;
+import com.senai.conta_bancaria.Application.DTO.ContaAtualizadaDTO;
 import com.senai.conta_bancaria.Application.DTO.ContaResumoDTO;
 import com.senai.conta_bancaria.Application.Service.ContaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +23,15 @@ public class ContaController {
     public ResponseEntity <List<ContaResumoDTO>> listarTodasAsContas(){
         return ResponseEntity.ok(service.listarTodasAsContas());
     }
+
+    @GetMapping("/numero/{numero}")
+    public ResponseEntity<ContaResumoDTO> buscarNumeroAtiva(@PathVariable String numero){
+        return ResponseEntity.ok(service.buscarNumeroAtiva(numero));
+    }
+
+    @PutMapping("/{numero}")
+    public ResponseEntity<ContaResumoDTO> atualizarNumeroConta(@PathVariable String numero, @RequestBody ContaAtualizadaDTO dto){
+        return ResponseEntity.ok(service.atualizarNumeroConta(numero, dto));
+    }
+
 }
