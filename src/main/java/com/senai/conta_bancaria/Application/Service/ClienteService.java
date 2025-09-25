@@ -1,5 +1,6 @@
 package com.senai.conta_bancaria.Application.Service;
 
+import com.senai.conta_bancaria.Application.DTO.ClienteAtualizarDTO;
 import com.senai.conta_bancaria.Application.DTO.ClienteRegistroDTO;
 import com.senai.conta_bancaria.Application.DTO.ClienteResponseDTO;
 import com.senai.conta_bancaria.Domain.Repository.ClienteRepository;
@@ -46,4 +47,22 @@ public class ClienteService {
         return ClienteResponseDTO.fromEntity(cliente);
     }
 
+    public ClienteResponseDTO atualizarCliente(String cpf, ClienteAtualizarDTO dto) {
+        var cliente = repository.findByCpfAndAtivoTrue(cpf).orElseThrow(
+                () -> new RuntimeException("Cliente não encontrado...")
+        );
+
+        cliente.setNome(dto.nome());
+        cliente.setCpf(dto.cpf());
+
+        return ClienteResponseDTO.fromEntity(repository.save(cliente));
+    }
+
+    public void deletarCliente(String cpf) {
+        var cliente = repository.findByCpfAndAtivoTrue(cpf).orElseThrow(
+                () -> new RuntimeException("Cliente não encontrado...")
+        );
+        cliente.setAtivo(false);
+        repository.save(cliente);
+    }
 }
