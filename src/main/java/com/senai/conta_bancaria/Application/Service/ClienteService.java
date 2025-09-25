@@ -63,6 +63,10 @@ public class ClienteService {
                 () -> new RuntimeException("Cliente não encontrado...")
         );
         cliente.setAtivo(false);
+        cliente.getContas().forEach(
+                conta -> conta.setAtiva(false)
+        );
+
         repository.save(cliente);
     }
 }
