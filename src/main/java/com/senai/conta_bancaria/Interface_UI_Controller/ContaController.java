@@ -1,9 +1,6 @@
 package com.senai.conta_bancaria.Interface_UI_Controller;
 
-import com.senai.conta_bancaria.Application.DTO.ClienteResponseDTO;
-import com.senai.conta_bancaria.Application.DTO.ContaAtualizadaDTO;
-import com.senai.conta_bancaria.Application.DTO.ContaResumoDTO;
-import com.senai.conta_bancaria.Application.DTO.ValorSaqueDepositoDTO;
+import com.senai.conta_bancaria.Application.DTO.*;
 import com.senai.conta_bancaria.Application.Service.ContaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +46,11 @@ public class ContaController {
     @PutMapping("/{numero}/depositar")
     public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
         return ResponseEntity.ok(service.depositar(numero, dto));
+    }
 
-}
+    @PutMapping("/{numero}/transferir")
+    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numero, @RequestBody TransferenciaDTO dto){
+        return ResponseEntity.ok(service.transferir(numero, dto));
+    }
+
 }
