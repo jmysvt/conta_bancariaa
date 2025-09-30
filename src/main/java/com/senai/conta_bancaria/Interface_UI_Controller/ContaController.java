@@ -34,4 +34,10 @@ public class ContaController {
         return ResponseEntity.ok(service.atualizarNumeroConta(numero, dto));
     }
 
+    @DeleteMapping("/{numero}")
+    public ResponseEntity<Void> deletarConta(@PathVariable String numero){
+        service.deletarConta(numero);
+        return ResponseEntity.noContent().build();
+    }
+
 }
