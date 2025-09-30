@@ -3,6 +3,7 @@ package com.senai.conta_bancaria.Application.Service;
 import com.senai.conta_bancaria.Application.DTO.ClienteResponseDTO;
 import com.senai.conta_bancaria.Application.DTO.ContaAtualizadaDTO;
 import com.senai.conta_bancaria.Application.DTO.ContaResumoDTO;
+import com.senai.conta_bancaria.Application.DTO.ValorSaqueDepositoDTO;
 import com.senai.conta_bancaria.Domain.Entity.Conta;
 import com.senai.conta_bancaria.Domain.Entity.ContaCorrente;
 import com.senai.conta_bancaria.Domain.Entity.ContaPoupanca;
@@ -63,5 +64,13 @@ public class ContaService {
         repository.save(conta);
 
 
+    }
+
+    public ContaResumoDTO sacar(String numero, ValorSaqueDepositoDTO dto) {
+        Conta conta = repository.findByNumeroAndAtivaTrue(numero).orElseThrow(
+                () -> new RuntimeException("A conta não existe...")
+        );
+        conta.sacar(dto.valor());
+        return ContaResumoDTO.fromEntity(repository.save(conta));
     }
 }

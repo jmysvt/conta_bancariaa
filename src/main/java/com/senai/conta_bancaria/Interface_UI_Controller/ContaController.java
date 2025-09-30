@@ -3,6 +3,7 @@ package com.senai.conta_bancaria.Interface_UI_Controller;
 import com.senai.conta_bancaria.Application.DTO.ClienteResponseDTO;
 import com.senai.conta_bancaria.Application.DTO.ContaAtualizadaDTO;
 import com.senai.conta_bancaria.Application.DTO.ContaResumoDTO;
+import com.senai.conta_bancaria.Application.DTO.ValorSaqueDepositoDTO;
 import com.senai.conta_bancaria.Application.Service.ContaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,11 @@ public class ContaController {
     public ResponseEntity<Void> deletarConta(@PathVariable String numero){
         service.deletarConta(numero);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{numero}/sacar")
+    public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
+        return ResponseEntity.ok(service.sacar(numero, dto));
     }
 
 }
