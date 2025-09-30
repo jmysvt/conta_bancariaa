@@ -48,7 +48,7 @@ public abstract class Conta {
 
     public void sacar(BigDecimal valor) {
         if (valor.compareTo(BigDecimal.ZERO) <= 0  ){
-            throw new IllegalArgumentException("Saldo precisa ser positivo");
+            validarValorMaiorQueZero(valor);
         }
 
         if (valor.compareTo(saldo) > 0) {
@@ -56,5 +56,16 @@ public abstract class Conta {
         }
 
         saldo = saldo.subtract(valor);
+    }
+
+    public void depositar(BigDecimal valor) {
+        validarValorMaiorQueZero(valor);
+        saldo = saldo.add(valor);
+    }
+
+    private static void validarValorMaiorQueZero(BigDecimal valor) {
+        if (valor.compareTo(BigDecimal.ZERO) <= 0 ){
+            throw new IllegalArgumentException("O valor para deposito deve ser positivo");
+        }
     }
 }

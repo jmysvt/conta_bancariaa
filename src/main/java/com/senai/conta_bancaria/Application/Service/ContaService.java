@@ -56,9 +56,7 @@ public class ContaService {
     }
 
     public void deletarConta(String numero) {
-        var conta = repository.findByNumeroAndAtivaTrue(numero).orElseThrow(
-                () -> new RuntimeException("A conta não existe...")
-        );
+        Conta conta = buscarContaAtivaPorNumero(numero);
 
         conta.setAtiva(false);
         repository.save(conta);
@@ -67,10 +65,20 @@ public class ContaService {
     }
 
     public ContaResumoDTO sacar(String numero, ValorSaqueDepositoDTO dto) {
-        Conta conta = repository.findByNumeroAndAtivaTrue(numero).orElseThrow(
-                () -> new RuntimeException("A conta não existe...")
-        );
+        Conta conta = buscarContaAtivaPorNumero(numero);
         conta.sacar(dto.valor());
         return ContaResumoDTO.fromEntity(repository.save(conta));
     }
+
+    public ContaResumoDTO depositar(String numero, ValorSaqueDepositoDTO dto) {
+        Conta conta = buscarContaAtivaPorNumero(numero);
+        conta.depositar(dto.valor());
+        return ContaResumoDTO.fromEntity(repository.save(conta));
+    }
+
+    private Conta buscarContaAtivaPorNumero(String numero){
+        Conta conta = repository.findByNumeroAndAtivaTrue(numero).orElseThrow(
+                () -> new RuntimeException("A conta não existe..."));
+    }
+}
 }

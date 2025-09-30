@@ -46,4 +46,9 @@ public class ContaController {
         return ResponseEntity.ok(service.sacar(numero, dto));
     }
 
+    @PutMapping("/{numero}/depositar")
+    public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
+        return ResponseEntity.ok(service.depositar(numero, dto));
+
+}
 }
