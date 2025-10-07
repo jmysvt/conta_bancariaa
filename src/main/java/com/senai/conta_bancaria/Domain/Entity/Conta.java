@@ -1,8 +1,8 @@
 package com.senai.conta_bancaria.Domain.Entity;
 
+import com.senai.conta_bancaria.Domain.exception.SaldoInsuficienteException;
+import com.senai.conta_bancaria.Domain.exception.ValoresNegativosException;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,18 +11,17 @@ import java.math.BigDecimal;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) //entidades com tipos diferentes
-@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING, length = 20) //tipo de dado que vai diferenciar as entidades
-@Table(name = "contaDTO",
-    uniqueConstraints = {
-        @UniqueConstraint(name = "uk_conta_numero", columnNames = "numero"),
-        @UniqueConstraint(name = "uk_cliente_tipo", columnNames = {"cliente_id", "tipo_conta"})
-}) //regras de limitação
-
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING, length = 20)
+@Table(name = "conta",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_conta_numero", columnNames = "numero"),
+                @UniqueConstraint(name = "uk_cliente_tipo", columnNames = {"cliente_id", "tipo_conta"})
+        }
+)
 @Data
 @SuperBuilder
 @NoArgsConstructor
-
 public abstract class Conta {
 
     @Id
@@ -30,11 +29,9 @@ public abstract class Conta {
     private String id;
 
     @Column(nullable = false, length = 20)
-    @NotNull(message = "O campo NUMERO da contaDTO NÃO pode estar vazio")
     private String numero;
 
-    @Column(nullable = false, precision = 4)
-    @PositiveOrZero(message = "O campo SALDO NÃO pode ser negativo")
+    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal saldo;
 
     @Column(nullable = false)
@@ -44,38 +41,35 @@ public abstract class Conta {
     @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_conta_cliente"))
     private Cliente cliente;
 
-    public abstract String getTipo();
+    public abstract String getTipo() ;
 
     public void sacar(BigDecimal valor) {
-        if (valor.compareTo(BigDecimal.ZERO) <= 0  ){
-            validarValorMaiorQueZero(valor);
-        }
-
+        validarValorMaiorQueZero(valor, "saque");
         if (valor.compareTo(saldo) > 0) {
-            throw new IllegalArgumentException("Saldo insuficiente para saque");
+            throw new SaldoInsuficienteException("saque");
         }
-
         saldo = saldo.subtract(valor);
     }
 
     public void depositar(BigDecimal valor) {
-        validarValorMaiorQueZero(valor);
+        validarValorMaiorQueZero(valor, "deposito");
         saldo = saldo.add(valor);
     }
 
-    protected static void validarValorMaiorQueZero(BigDecimal valor) {
-        if (valor.compareTo(BigDecimal.ZERO) <= 0 ){
-            throw new IllegalArgumentException("O valor para deposito deve ser positivo");
+
+
+    protected static void validarValorMaiorQueZero(BigDecimal valor, String operacao) {
+        if(valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ValoresNegativosException(operacao);
         }
     }
 
-    public void transferir (BigDecimal valor, Conta contaDestino){
-        if (this.id.equals(contaDestino.getId())){
-            throw new IllegalArgumentException("Não é posssível transferir para a mesma conta");
+    public void transferir(BigDecimal valor, Conta contaDestino) {
+        if (this.id.equals(contaDestino.getId())) {
+            throw new IllegalArgumentException("Não é possível transferir para a mesma conta.");
         }
 
         this.sacar(valor);
         contaDestino.depositar(valor);
     }
-
 }

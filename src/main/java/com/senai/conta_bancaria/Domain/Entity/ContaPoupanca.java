@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ContaPoupanca extends Conta {
 
-    @Column(precision = 5)
+    @Column(precision = 20, scale = 4)
     private BigDecimal rendimento;
 
     @Override
@@ -26,4 +26,8 @@ public class ContaPoupanca extends Conta {
         return "POUPANCA";
     }
 
+    public void aplicarRendimento() {
+        BigDecimal valorRendimento = getSaldo().multiply(rendimento);
+        setSaldo(getSaldo().add(valorRendimento));
+    }
 }

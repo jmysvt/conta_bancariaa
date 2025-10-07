@@ -53,4 +53,9 @@ public class ContaController {
         return ResponseEntity.ok(service.transferir(numero, dto));
     }
 
+    @PostMapping("/{numero}/rendimento")
+    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable String numero){
+        return ResponseEntity.ok(service.aplicarRendimento(numero));
+    }
+
 }
