@@ -13,32 +13,31 @@ public record ContaResumoDTO(
         String tipo,
         BigDecimal saldo
 ){
-
-    public Conta toEntity(Cliente cliente) {
-
+    public Conta toEntity (Cliente cliente){
         if ("CORRENTE".equalsIgnoreCase(tipo)){
-            return ContaCorrente
-                    .builder()
+            return ContaCorrente.builder()
                     .cliente(cliente)
                     .numero(this.numero)
                     .saldo(this.saldo)
-                    .ativa(true).
-                    build();
-        } else if ("POUPANCA".equalsIgnoreCase(tipo)) {
-            return ContaPoupanca
-                    .builder()
+                    .taxa(new BigDecimal("0.05"))
+                    .limite(new BigDecimal("500.0"))
+                    .ativa(true)
+                    .build();
+        }else if ("POUPANCA".equalsIgnoreCase(tipo)){
+            return ContaPoupanca.builder()
+                    .cliente(cliente)
                     .numero(this.numero)
                     .saldo(this.saldo)
+                    .rendimento(new BigDecimal("0.01"))
                     .ativa(true)
                     .build();
         }
-
-        return null;
+        return  null;
     }
 
     public static ContaResumoDTO fromEntity(Conta conta) {
         return new ContaResumoDTO(
-                conta.getNumero(),
+                conta.getId(),
                 conta.getTipo(),
                 conta.getSaldo()
         );
