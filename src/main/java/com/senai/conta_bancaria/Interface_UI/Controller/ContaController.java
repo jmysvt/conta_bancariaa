@@ -2,6 +2,7 @@ package com.senai.conta_bancaria.Interface_UI.Controller;
 
 import com.senai.conta_bancaria.Application.DTO.*;
 import com.senai.conta_bancaria.Application.Service.ContaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,22 +40,22 @@ public class ContaController {
     }
 
     @PostMapping("/{numero}/sacar")
-    public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
+    public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numero, @Valid @RequestBody ValorSaqueDepositoDTO dto){
         return ResponseEntity.ok(service.sacar(numero, dto));
     }
 
     @PostMapping("/{numero}/depositar")
-    public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
+    public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numero, @Valid @RequestBody ValorSaqueDepositoDTO dto){
         return ResponseEntity.ok(service.depositar(numero, dto));
     }
 
     @PostMapping ("/{numero}/transferir")
-    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numero, @RequestBody TransferenciaDTO dto){
+    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numero, @Valid @RequestBody TransferenciaDTO dto){
         return ResponseEntity.ok(service.transferir(numero, dto));
     }
 
     @PostMapping("/{numero}/rendimento")
-    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable String numero){
+    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable @Valid String numero){
         return ResponseEntity.ok(service.aplicarRendimento(numero));
     }
 

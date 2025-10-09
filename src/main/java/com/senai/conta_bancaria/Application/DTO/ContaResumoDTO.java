@@ -6,10 +6,15 @@ import com.senai.conta_bancaria.Domain.Entity.Conta;
 import com.senai.conta_bancaria.Domain.Entity.ContaCorrente;
 import com.senai.conta_bancaria.Domain.Entity.ContaPoupanca;
 import com.senai.conta_bancaria.Domain.exception.TipoDeContaInvalidaException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
 public record ContaResumoDTO(
+        @Valid
+        @NotNull(message = "O número da conta não pode estar em branco")
         String numero,
         String tipo,
         BigDecimal saldo
