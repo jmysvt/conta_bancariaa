@@ -3,12 +3,16 @@ package com.senai.conta_bancaria.Application.DTO;
 import com.senai.conta_bancaria.Domain.Entity.Cliente;
 import com.senai.conta_bancaria.Domain.Entity.Conta;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 
 public record ClienteRegistroDTO(
+        @NotBlank(message = "O campo nome não pode estar em branco")
         String nome,
+
+        @NotBlank(message = "O campo cpf não pode estar em branco")
         String cpf,
         @Valid
         @NotNull

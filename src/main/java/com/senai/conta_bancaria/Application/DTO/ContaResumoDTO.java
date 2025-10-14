@@ -9,14 +9,19 @@ import com.senai.conta_bancaria.Domain.exception.TipoDeContaInvalidaException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
 public record ContaResumoDTO(
-        @Valid
-        @NotNull(message = "O número da conta não pode estar em branco")
+        @NotBlank(message = "O número da conta não pode estar em branco")
         String numero,
+
+        @NotBlank(message = "O tipo da conta é obrigatório (CORRENTE ou POUPANCA)")
         String tipo,
+
+        @NotNull(message = "O saldo não pode ser nulo")
+        @Positive(message = "O valor do saldo deve ser positivo")
         BigDecimal saldo
 ){
     public Conta toEntity (Cliente cliente){
@@ -43,7 +48,7 @@ public record ContaResumoDTO(
 
     public static ContaResumoDTO fromEntity(Conta conta) {
         return new ContaResumoDTO(
-                conta.getId(),
+                conta.getNumero(),
                 conta.getTipo(),
                 conta.getSaldo()
         );

@@ -29,7 +29,7 @@ public class ContaController {
     }
 
     @PutMapping("/{numero}")
-    public ResponseEntity<ContaResumoDTO> atualizarNumeroConta(@PathVariable String numero, @RequestBody ContaAtualizadaDTO dto){
+    public ResponseEntity<ContaResumoDTO> atualizarNumeroConta(@PathVariable String numero, @Valid @RequestBody ContaAtualizadaDTO dto){
         return ResponseEntity.ok(service.atualizarNumeroConta(numero, dto));
     }
 
@@ -55,7 +55,7 @@ public class ContaController {
     }
 
     @PostMapping("/{numero}/rendimento")
-    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable @Valid String numero){
+    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable String numero){
         return ResponseEntity.ok(service.aplicarRendimento(numero));
     }
 
