@@ -7,6 +7,7 @@ import com.senai.conta_bancaria.Domain.Entity.Cliente;
 import com.senai.conta_bancaria.Domain.Repository.ClienteRepository;
 import com.senai.conta_bancaria.Domain.exception.ContaMesmoTipo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class ClienteService {
     private final ClienteRepository repository;
     private final PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasAnyRole('ADMIN','GERENTE')")
     public ClienteResponseDTO registrarCliente (ClienteRegistroDTO dto){
 
         var cliente = repository.findByCpfAndAtivoTrue(dto.cpf()).orElseGet(

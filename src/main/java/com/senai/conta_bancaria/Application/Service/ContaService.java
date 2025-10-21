@@ -9,6 +9,7 @@ import com.senai.conta_bancaria.Domain.exception.EntidadeNaoEncontradaException;
 import com.senai.conta_bancaria.Domain.exception.RendimentoInvalidoException;
 import com.senai.conta_bancaria.Domain.exception.TipoDeContaInvalidaException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class ContaService {
 
     private final ContaRepository repository;
-
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     @Transactional(readOnly = true)
     public List<ContaResumoDTO> listarTodasAsContas() {
         return repository.findAllByAtivaTrue().

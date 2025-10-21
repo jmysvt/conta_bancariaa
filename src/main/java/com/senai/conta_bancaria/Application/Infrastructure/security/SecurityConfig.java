@@ -32,10 +32,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/auth/**","/auth/refresh", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/gerentes").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/gerentes").hasAnyRole("ADMIN", "GERENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/gerentes").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/gerentes").hasAnyRole("ADMIN", "GERENTE")
+
+                        .requestMatchers(HttpMethod.POST, "/api/cliente").hasAnyRole("ADMIN","GERENTE")
+                        .requestMatchers(HttpMethod.GET, "/api/cliente").hasAnyRole("ADMIN","GERENTE")
+
+                        .requestMatchers(HttpMethod.POST, "/api/conta/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.GET, "/api/conta").hasAnyRole("ADMIN","GERENTE","CLIENTE")
 
                         .anyRequest().authenticated()
                 )

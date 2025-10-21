@@ -17,6 +17,8 @@ public record ClienteRegistroDTO(
         String cpf,
         @NotBlank(message = "O campo senha não pode estar em branco")
         String senha,
+        @NotBlank(message = "O campo email não pode estar em branco")
+        String email,
         Role role,
         @Valid
         @NotNull
@@ -29,7 +31,8 @@ public record ClienteRegistroDTO(
                 .nome(this.nome)
                 .cpf(this.cpf)
                 .senha(this.senha)
-                .role(this.role)
+                .email(this.email)
+                .role(Role.CLIENTE)
                 .contas(new ArrayList<Conta>())
                 .build();
     };
