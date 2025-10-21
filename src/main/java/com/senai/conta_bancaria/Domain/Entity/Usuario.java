@@ -8,8 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import javax.management.relation.Role;
+import com.senai.conta_bancaria.Domain.enums.Role;
 
 @Getter
 @Setter

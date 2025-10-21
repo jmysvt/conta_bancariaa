@@ -1,8 +1,12 @@
 package com.senai.conta_bancaria.Interface_UI.Controller;
 
+import com.senai.conta_bancaria.Application.DTO.GerenteDTO;
+import com.senai.conta_bancaria.Application.Service.GerenteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/gerentes")
@@ -12,9 +16,9 @@ public class GerenteController {
     private final GerenteService service;
 
     @GetMapping
-    public ResponseEntity<List<GerenteDTO>> listarTodosProfessores() {
-        List<GerenteDTO> professores = service.listarTodosGerentes();
-        return ResponseEntity.ok(professores);
+    public ResponseEntity<List<GerenteDTO>> listarTodosGerentes() {
+        List<GerenteDTO> gerentes = service.listarTodosGerentes();
+        return ResponseEntity.ok(gerentes);
     }
 
     @PostMapping

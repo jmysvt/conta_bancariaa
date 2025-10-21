@@ -1,3 +1,5 @@
+package com.senai.conta_bancaria.Application.Infrastructure.security;
+
 import com.senai.conta_bancaria.Application.Service.JwtService;
 import com.senai.conta_bancaria.Application.Service.UsuarioDetailsService;
 import jakarta.servlet.FilterChain;

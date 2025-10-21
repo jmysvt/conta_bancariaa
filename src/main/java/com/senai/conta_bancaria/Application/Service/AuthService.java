@@ -1,10 +1,13 @@
 package com.senai.conta_bancaria.Application.Service;
 
 
+import com.senai.conta_bancaria.Application.DTO.AuthDTO;
 import com.senai.conta_bancaria.Domain.Entity.Usuario;
 import com.senai.conta_bancaria.Domain.Repository.UsuarioRepository;
 import com.senai.conta_bancaria.Domain.exception.UsuarioNaoEncontradoException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

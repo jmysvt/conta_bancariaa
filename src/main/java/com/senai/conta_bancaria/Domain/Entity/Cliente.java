@@ -22,18 +22,7 @@ uniqueConstraints = {
 } )
 
 
-public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-
-    @Column(nullable = false, length = 120)
-    @NotBlank (message = "O campo, NOME, NÃO pode estar vazio")
-    private String nome;
-
-    @Column(nullable = false, length = 11)
-    @NotNull (message = "O campo, CPF, NÃO pode estar vazio")
-    private  String cpf;
+public class Cliente extends Usuario {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     @NotNull(message = "O campo contas não pode estar vazio")

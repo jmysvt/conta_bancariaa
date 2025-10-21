@@ -4,12 +4,14 @@ import com.senai.conta_bancaria.Domain.Entity.Gerente;
 import com.senai.conta_bancaria.Domain.Repository.GerenteRepository;
 import com.senai.conta_bancaria.Domain.enums.Role;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AdminBootstrap {
+public class AdminBootstrap implements CommandLineRunner {
 
     private final GerenteRepository gerenteRepository;
     private final PasswordEncoder passwordEncoder;
@@ -23,10 +25,10 @@ public class AdminBootstrap {
     @Override
     public void run(String... args) {
         gerenteRepository.findByEmail(adminEmail).ifPresentOrElse(
-                prof -> {
-                    if (!prof.isAtivo()) {
-                        prof.setAtivo(true);
-                        gerenteRepository.save(prof);
+                gerente -> {
+                    if (!gerente.isAtivo()) {
+                        gerente.setAtivo(true);
+                        gerenteRepository.save(gerente);
                     }
                 },
                 () -> {

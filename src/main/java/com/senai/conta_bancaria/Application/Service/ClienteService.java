@@ -7,6 +7,7 @@ import com.senai.conta_bancaria.Domain.Entity.Cliente;
 import com.senai.conta_bancaria.Domain.Repository.ClienteRepository;
 import com.senai.conta_bancaria.Domain.exception.ContaMesmoTipo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ConcurrentModificationException;
@@ -18,6 +19,7 @@ public class ClienteService {
 
 
     private final ClienteRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     public ClienteResponseDTO registrarCliente (ClienteRegistroDTO dto){
 
@@ -34,6 +36,7 @@ public class ClienteService {
             throw new ContaMesmoTipo();
 
         cliente.getContas().add(novaConta);
+        cliente.setSenha(passwordEncoder.encode(dto.senha()));
 
         return ClienteResponseDTO.fromEntity(repository.save(cliente));
     }
