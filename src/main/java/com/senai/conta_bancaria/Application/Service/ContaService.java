@@ -50,7 +50,6 @@ public class ContaService {
         conta.setAtiva(false);
         repository.save(conta);
 
-
     }
 
     public ContaResumoDTO sacar(String numero, ValorSaqueDepositoDTO dto) {
