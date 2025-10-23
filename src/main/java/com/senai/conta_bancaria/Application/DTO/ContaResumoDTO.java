@@ -22,7 +22,6 @@ public record ContaResumoDTO(
 
         @NotNull(message = "O saldo não pode ser nulo")
         @Positive(message = "O valor do saldo deve ser positivo")
-
         BigDecimal saldo
 ){
     public Conta toEntity (Cliente cliente){
