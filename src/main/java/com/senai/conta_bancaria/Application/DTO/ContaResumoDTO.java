@@ -6,7 +6,6 @@ import com.senai.conta_bancaria.Domain.Entity.Conta;
 import com.senai.conta_bancaria.Domain.Entity.ContaCorrente;
 import com.senai.conta_bancaria.Domain.Entity.ContaPoupanca;
 import com.senai.conta_bancaria.Domain.exception.TipoDeContaInvalidaException;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
