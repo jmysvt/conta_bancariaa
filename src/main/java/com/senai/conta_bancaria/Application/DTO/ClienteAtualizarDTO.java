@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record ClienteAtualizarDTO(
         @NotBlank(message = "O campo nome não pode estar em branco")
-        @Schema(description = "Nome para atulizar", example = "Bianca")
+        @Schema(description = "Nome para atualizar", example = "Bianca")
         String nome,
 
         @NotBlank(message = "O campo cpf não pode estar em branco")

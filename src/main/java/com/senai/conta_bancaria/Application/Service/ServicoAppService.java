@@ -30,14 +30,14 @@ public class ServicoAppService {
                 .toList();
     }
 
-    public ServicoDTO buscarPorId(Long id) {
+    public ServicoDTO buscarPorId(String id) {
         return ServicoDTO.fromEntity(
                 repository.findById(id)
                         .orElseThrow(() -> new EntidadeNaoEncontradaException("Serviço com ID " + id + " não encontrado."))
         );
     }
 
-    public ServicoDTO atualizar(Long id, ServicoDTO dtoAtualizado) {
+    public ServicoDTO atualizar(String id, ServicoDTO dtoAtualizado) {
         Servico existente = repository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Serviço com ID " + id + " não encontrado."));
 
@@ -48,7 +48,7 @@ public class ServicoAppService {
         return ServicoDTO.fromEntity(repository.save(atualizado));
     }
 
-    public void deletar(Long id) {
+    public void deletar(String id) {
         if (!repository.existsById(id)) {
             throw new EntidadeNaoEncontradaException("Serviço com ID " + id + " não encontrado.");
         }

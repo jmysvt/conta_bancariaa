@@ -12,12 +12,12 @@ public class SwaggerConfig {
     public OpenAPI oficinaOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API - Oficina Mecânica")
-                        .description("Cadastro e gestão de serviços de uma oficina.")
+                        .title("API - Conta Bancária")
+                        .description("API para cadastro, autenticação e gestão de contas bancárias e clientes.")
                         .version("1.0")
                         .contact(new Contact()
-                                .name("Equipe Oficina")
-                                .email("suporte@oficina.com"))
+                                .name("Equipe Conta Bancária")
+                                .email("suporte@contabancaria.com"))
                 );
     }
 
