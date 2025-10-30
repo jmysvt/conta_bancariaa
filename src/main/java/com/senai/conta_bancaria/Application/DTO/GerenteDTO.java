@@ -4,6 +4,7 @@ import com.senai.conta_bancaria.Domain.Entity.Gerente;
 import com.senai.conta_bancaria.Domain.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 
 public record GerenteDTO(
         String id,
@@ -29,15 +30,15 @@ public record GerenteDTO(
         Role role
 ) {
     public static GerenteDTO fromEntity(Gerente gerente) {
-        return new GerenteDTO(
-                gerente.getId(),
-                gerente.getNome(),
-                gerente.getCpf(),
-                gerente.getEmail(),
-                null, // senha não traz no DTO por segurança, pode ajustar se quiser
-                gerente.isAtivo(),
-                gerente.getRole()
-        );
+        return  GerenteDTO.builder()
+                .id(gerente.getId())
+                .nome(gerente.getNome())
+                .cpf(gerente.getCpf())
+                .email(gerente.getEmail())
+                .senha(gerente.getSenha())
+                .ativo(gerente.isAtivo())
+                .role(gerente.getRole())
+                .build();
     }
 
     public Gerente toEntity() {
