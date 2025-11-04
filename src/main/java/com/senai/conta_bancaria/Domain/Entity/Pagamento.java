@@ -1,5 +1,6 @@
 package com.senai.conta_bancaria.Domain.Entity;
 
+import com.senai.conta_bancaria.Domain.enums.StatusPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class Pagamento {
 
     private String dataPagamento;
 
-    private String status; // criar enums
+    private StatusPagamento status; // criar enums
 
     @ManyToMany
     @JoinTable(
