@@ -160,4 +160,35 @@ public class GlobalExceptionHandler {
         problem.setProperty("errors", errors);
         return problem;
     }
+
+    @ExceptionHandler(PagamentoNaoPendenteException.class)
+    public ProblemDetail handlerPagamentoNaoPendente (PagamentoNaoPendenteException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "O pagamento não está pendente",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(PagamentoNaoAssociadoTaxaException.class)
+    public ProblemDetail handlerPagamentoNaoAssociadoTaxa (PagamentoNaoAssociadoTaxaException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "O pagamento deve ter pelo menos uma taxa associada",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(BoletoVencidoException.class)
+    public ProblemDetail handlerBoletoVencido (BoletoVencidoException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.UNPROCESSABLE_ENTITY,
+                "o boleto está vencido e não pode ser pago",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
 }

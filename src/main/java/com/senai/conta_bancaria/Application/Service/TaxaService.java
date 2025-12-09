@@ -15,7 +15,7 @@ public class TaxaService {
 
     private final TaxaRepository taxaRepository;
 
-    public Taxa crete(TaxaDTO dto){
+    public Taxa create(TaxaDTO dto){
         Taxa taxa = new Taxa();
         taxa.setDescricao(dto.descricao());
         taxa.setPercentual(dto.percentual());
@@ -30,7 +30,7 @@ public class TaxaService {
         return taxaRepository.findById(id).orElseThrow(TaxaInvalidaException::new);
     }
 
-    public void deletar(String id){taxaRepository.deleteById(id);}
+    public void delete(String id){taxaRepository.deleteById(id);}
 
 
 }
