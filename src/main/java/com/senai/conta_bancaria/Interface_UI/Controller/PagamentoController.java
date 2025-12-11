@@ -31,7 +31,7 @@ public class PagamentoController {
     public ResponseEntity<String> processarPagamento(@RequestBody PagamentoDTO pagamentoDTO) {
         try {
             // Busca a conta pelo número
-            var contaOpt = contaRepository.findByNumeroAndAtivaTrue(pagamentoDTO.contaNumero());
+            var contaOpt = contaRepository.findByNumeroAndAtivaTrue(pagamentoDTO.conta());
             if (contaOpt.isEmpty()) {
                 return new ResponseEntity<>("Conta não encontrada ou inativa.", HttpStatus.NOT_FOUND);
             }

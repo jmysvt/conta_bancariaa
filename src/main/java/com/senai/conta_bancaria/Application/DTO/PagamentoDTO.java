@@ -10,7 +10,7 @@ import java.util.Set;
 public record PagamentoDTO(
         @NotBlank(message = "O campo numero da conta não pode estar em branco")
         @Schema(description = "numero da conta para o pagamento", example = "1234-5")
-        String contaNumero,
+        String conta,
 
         @NotBlank(message = "O campo valor não pode estar em branco")
         @Schema(description = "Valor pago no boleto", example = "300")

@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/cliente").hasAnyRole("ADMIN","GERENTE")
                         .requestMatchers(HttpMethod.GET, "/api/cliente").hasAnyRole("ADMIN","GERENTE")
 
-                        .requestMatchers(HttpMethod.POST, "/api/conta/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/conta/**").hasAnyRole("ADMIN","CLIENTE")
                         .requestMatchers(HttpMethod.GET, "/api/conta").hasAnyRole("ADMIN","GERENTE","CLIENTE")
 
                         .anyRequest().authenticated()
